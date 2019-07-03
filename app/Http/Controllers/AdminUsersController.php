@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Role;
 
+use App\User;
 use App\Http\Requests;
+use Illuminate\Http\Request;
+use App\Http\Requests\UsersRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUsersController extends Controller
 {
@@ -16,7 +20,9 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        return view('admin.users.index');
+        $user = User::all();
+
+        return view('admin.users.index', compact('user'));
     }
 
     /**
@@ -27,7 +33,9 @@ class AdminUsersController extends Controller
     public function create()
     {
         //
-        return view('admin.users.create');
+        $roles = Role::lists('name', 'id')->all();
+
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -36,9 +44,17 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersRequest $request)
     {
         //
+        $user = $request->all();
+
+        $user['password'] = bcrypt($request->get('password'));
+
+        User::create($user);
+
+
+        return redirect('/admin/users');
     }
 
     /**
