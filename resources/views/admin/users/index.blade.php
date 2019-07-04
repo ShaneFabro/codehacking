@@ -8,6 +8,7 @@
         <thead>
           <tr>
             <th>Id</th>
+            <th>Photo</th>
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
@@ -21,9 +22,10 @@
             @foreach($user as $users)
                 <tr>
                     <td>{{$users->id}}</td>
-                    <td>{{$users->name}}</td>
+                    <td><img height="50" src="{{$users->photo ? $users->photo->file : 'http://placehold.it/400x400'}}" alt=""></td>
+                    <td><a href="{{route('admin.users.edit', $users->id)}}">{{$users->name}}</a></td>
                     <td>{{$users->email}}</td>
-                    <td>{{$users->role ? $users->role->name : 'No role'}}</td>
+                    <td>{{$users->role ? $users->role->name : 'User has no role'}}</td>
                     <td>{{$users->is_active == 1 ? 'Active' : 'Not Active'}}</td>
                     <td>{{$users->created_at->diffForHumans()}}</td>
                     <td>{{$users->updated_at->diffForHumans()}}</td>
