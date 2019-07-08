@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UsersRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UsersEditRequest;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -22,7 +23,7 @@ class AdminUsersController extends Controller
     public function index()
     {
         //
-        $user = User::all();
+        $user = User::orderBy('id', 'asc')->get();
 
         return view('admin.users.index', compact('user'));
     }
@@ -158,5 +159,17 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::findOrFail($id);
+
+        unlink(public_path() . $user->photo->file);
+
+        $user->delete();
+
+        Session::flash('deleted_user', 'The User has been deleted');
+
+        return redirect('/admin/users');
+
     }
+
+
 }
