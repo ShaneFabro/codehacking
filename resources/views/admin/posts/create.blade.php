@@ -30,6 +30,7 @@
                 {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
             </div>
 
+        
 
         {!! Form::close() !!}
         <br>

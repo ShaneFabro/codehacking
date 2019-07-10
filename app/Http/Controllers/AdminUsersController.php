@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
+use App\Post;
 
+use App\Role;
 use App\User;
 use App\Photo;
 use App\Http\Requests;
@@ -160,6 +161,22 @@ class AdminUsersController extends Controller
     {
         //
         $user = User::findOrFail($id);
+
+        // $postowner = Post::whereUserId($id)->get();
+
+        // foreach($postowner as $post) {
+
+        //     $post->delete();
+
+        // }
+
+        $postowner = Post::whereUserId($id)->get();
+
+        foreach($postowner as $post) {
+
+            unlink(public_path() . $post->photo->file);
+
+        }
 
         unlink(public_path() . $user->photo->file);
 
