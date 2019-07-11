@@ -2,6 +2,12 @@
 
 @section('content')
 
+    @if(Session::has('deleted_category'))
+
+        <p class="bg-danger">{{session('deleted_category')}}</p>
+
+    @endif
+
     <h1>Categories</h1>
 
     <div class="col-sm-6">
@@ -36,7 +42,7 @@
                     @foreach($category as $categories)
                         <tr>
                             <td>{{$categories->id}}</td>
-                            <td>{{$categories->name}}</td>
+                            <td><a href="{{route('admin.categories.edit', $categories->id)}}">{{$categories->name}}</a></td>
                             <td>{{$categories->created_at->diffForHumans()}}</td>
                             <td>{{$categories->updated_at->diffForHumans()}}</td>
                         </tr>

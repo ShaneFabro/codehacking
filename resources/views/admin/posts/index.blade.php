@@ -4,7 +4,7 @@
 
     @if(Session::has('deleted_post'))
 
-        <p>{{session('deleted_post')}}</p>
+        <p class="bg-danger">{{session('deleted_post')}}</p>
 
     @endif
 
