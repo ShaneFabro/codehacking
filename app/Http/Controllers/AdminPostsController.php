@@ -81,6 +81,7 @@ class AdminPostsController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**
@@ -150,4 +151,22 @@ class AdminPostsController extends Controller
 
         return redirect('/admin/posts');
     }
+
+    public function post($slug) {
+
+        $post = Post::whereSlug($slug)->first();
+
+        $example = Category::all();
+
+        $category = Category::limit(4)->get();
+
+        $test = Category::take(count($example))->skip(4)->get();
+
+        $comments = $post->comments()->whereIsActive(1)->get();
+
+        return view('post', compact('post', 'comments', 'category', 'test'));
+
+    }
+
+    
 }

@@ -3,11 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+
 
 class Post extends Model
 {
     //
     protected $path = '/images/';
+
+    use Sluggable;
+    
+    public function sluggable() {
+        return [
+            'slug' => [
+                'source'         => 'title',
+                'separator'      => '-',
+                'includeTrashed' => true,
+                'onUpdate'       => true
+            ]
+        ];
+    }
         
     protected $fillable = [
         'user_id',
@@ -35,4 +50,11 @@ class Post extends Model
 
     }
 
+    public function comments() {
+
+        return $this->hasMany('App\Comment');
+
+    }
+
+    
 }
