@@ -21,7 +21,7 @@ class PostCommentsController extends Controller
         //
         $comments = Comment::all();
 
-        return view('admin.comments.index', compact('comments'));
+        return view('admin.comments.show', compact('comments'));
     }
 
     /**

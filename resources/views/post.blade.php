@@ -20,15 +20,37 @@
                 <hr>
 
                 <!-- Preview Image -->
-                <img class="img-responsive" src="{{$post->photo ? $post->photo->file : 'http://placehold.it/900x300'}}" alt="">
+                <img class="img-responsive" src="{{$post->photo ? $post->photo->file : $post->photoPlaceholder()}}" alt="">
 
                 <hr>
 
                 <!-- Post Content -->
                 
-                {{$post->body}}
+                <p>{!! $post->body !!}</p>
 
-                <hr>
+                <div id="disqus_thread"></div>
+                <script>
+
+                /**
+                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                /*
+                var disqus_config = function () {
+                this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+                */
+                (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://codehacking-test-5.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <script id="dsq-count-scr" src="//codehacking-test-5.disqus.com/count.js" async></script>             
+
+                {{-- <hr>
 
                 @if(Session::has('comment_message'))
 
@@ -64,8 +86,8 @@
                     {!! Form::close() !!}
 
                 </div>
-                @endif
-                <hr>
+                @endif --}}
+                {{-- <hr>
 
                 <!-- Posted Comments -->
 
@@ -111,7 +133,7 @@
 
                                             <div class="comment-reply col-sm-6">
 
-                                                {!! Form::open(['method'=>'POST', 'action'=>'CommentRepliesController@createReply']) !!}
+                                                {!! Form::open(['method'=>'GET', 'action'=>'CommentRepliesController@createReply']) !!}
 
                                                     <input type="hidden" name="comment_id" value="{{$comment->id}}">
 
@@ -141,7 +163,7 @@
                     </div>
                     @endforeach
 
-                @endif
+                @endif --}}
 @endsection
 
 @section('category')

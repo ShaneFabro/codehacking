@@ -6,6 +6,7 @@ use App\Photo;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AdminMediaController extends Controller
 {
@@ -42,11 +43,51 @@ class AdminMediaController extends Controller
 
         $photo = Photo::findOrFail($id);
 
-        unlink(public_path() . $photo->file);
+        $path = public_path() . $photo->file;
 
-        $photo->delete();
+        unlink($path);
 
-        return redirect('/admin/media');
+        $photo->delete();  
+
+        // $photo->delete();
+
+        // return redirect('/admin/media');
+
+    }
+
+    public function deleteMedia(Request $request) {
+
+        // if(isset($request->delete_single)){
+
+        //     $this->destroy($request->destroy_single_id);
+
+        //     return redirect()->back();
+
+        // }
+
+        if(isset($request->delete_all) && !empty($request->checkBoxArray)){
+
+            $photos = Photo::findOrFail($request->checkBoxArray);
+
+            foreach($photos as $photo){
+
+                unlink(public_path() . $photo->file);
+
+                $photo->delete();
+
+            }
+
+            return redirect()->back();
+
+        } else {
+
+            $request->session()->flash('no_selected', 'Please select the photo/s you want to delete.');
+
+            return redirect()->back();
+
+        }
+
+        
 
     }
 }

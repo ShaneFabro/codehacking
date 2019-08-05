@@ -22,7 +22,7 @@ class AdminPostsController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        $posts = Post::paginate(2);
 
         $user = Auth::user();
 
@@ -37,7 +37,7 @@ class AdminPostsController extends Controller
     public function create()
     {
         //
-        $category = Category::lists('name', 'id')->all();
+        $category = Category::pluck('name', 'id')->all();
 
         return view('admin.posts.create', compact('category'));
     }
@@ -51,6 +51,7 @@ class AdminPostsController extends Controller
     public function store(PostCreateRequest $request)
     {
         //
+
         $input = $request->all();
 
         $user = Auth::user();
@@ -95,7 +96,7 @@ class AdminPostsController extends Controller
         //
         $post = Post::findOrFail($id);
 
-        $category = Category::lists('name', 'id')->all();
+        $category = Category::pluck('name', 'id')->all();
 
         return view('admin.posts.edit', compact('post', 'category'));
     }
@@ -144,6 +145,8 @@ class AdminPostsController extends Controller
         $postowner = Post::findOrFail($id);
 
         unlink(public_path() . $postowner->photo->file);
+
+        $postowner->photo()->delete();
 
         $postowner->delete();
 

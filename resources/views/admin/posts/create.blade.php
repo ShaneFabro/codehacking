@@ -2,11 +2,14 @@
 
 @section('content')
 
+    @include('includes.tinyeditor')
+
     <h1>Create Post</h1>
 
     <div class="row">
-        {!! Form::open(['method'=>'POST', 'action'=>'AdminPostsController@store', 'files'=>true]) !!}
-
+        {{-- {!! Form::open(['method'=>'POST', 'action'=>'AdminPostsController@store', 'files'=>true]) !!} --}}
+        <form action="{{route('admin.posts.show')}}" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="form-group">
                 {!! Form::label('title', 'Title:') !!}
                 {!! Form::text('title', null, ['class'=>'form-control']) !!}
@@ -32,7 +35,8 @@
 
         
 
-        {!! Form::close() !!}
+        {{-- {!! Form::close() !!} --}}
+        </form>
         <br>
     </div>
     <div class="row">

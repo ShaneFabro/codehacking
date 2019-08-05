@@ -11,10 +11,16 @@
 
     <h1>Upload Media</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'AdminMediaController@store', 'class'=>'dropzone']) !!}
+    {{-- {!! Form::open(['method'=>'POST', 'action'=>'AdminMediaController@store', 'class'=>'dropzone']) !!}
 
        
-    {!! Form::close() !!}
+    {!! Form::close() !!} --}}
+
+    <form action="{{route('admin.media.show')}}" method="post" class="dropzone">
+
+        {{ csrf_field() }}
+
+    </form>
 
 
     
