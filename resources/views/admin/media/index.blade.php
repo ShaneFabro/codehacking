@@ -36,7 +36,9 @@
                 <tbody>
                     @foreach($photos as $photo)
                         <tr>
-                            <td><input class="checkBoxes" type="checkbox" name="checkBoxArray[]" value="{{$photo->id}}"></td>
+                            <td>
+                                <input class="checkBoxes" type="checkbox" name="checkBoxArray[]" value="{{$photo->id}}">
+                            </td>
                             <td>{{$photo->id}}</td>
                             <td><img height="50" src="{{$photo->file ? $photo->file : 'http://placehold.it/400x400'}}" alt=""></a></td>
                             <td>

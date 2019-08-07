@@ -19,6 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+    if(Auth::check()){
+    return view('home');
+    }
+});
+
 Route::group(['middleware'=>'admin'], function(){
 
     Route::get('/admin', function(){
