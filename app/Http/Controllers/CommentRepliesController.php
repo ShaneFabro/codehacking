@@ -47,22 +47,47 @@ class CommentRepliesController extends Controller
 
         $user = Auth::user();
 
-        $data = [
+        if($user->photo_id == 0){
 
-            'comment_id' => $request->comment_id,
-            'is_active' => $user->is_active,
-            'author' => $user->name,
-            'photo' => $user->photo->file,
-            'email' => $user->email,
-            'body' => $request->body
+            $data = [
 
-        ];
+                'comment_id' => $request->comment_id,
+                'is_active' => $user->is_active,
+                'author' => $user->name,
+                'photo' => 'placeholder.jpg',
+                'email' => $user->email,
+                'body' => $request->body
+    
+            ];
 
-        CommentReply::create($data);
+            CommentReply::create($data);
 
-        $request->session()->flash('reply_message', 'Your reply has been sent.');
+            $request->session()->flash('reply_message', 'Your reply has been sent.');
 
-        return redirect()->back();
+            return redirect()->back();
+    
+
+        } else {
+
+            $data = [
+
+                'comment_id' => $request->comment_id,
+                'is_active' => $user->is_active,
+                'author' => $user->name,
+                'photo' => $user->photo->file,
+                'email' => $user->email,
+                'body' => $request->body
+    
+            ];
+
+            CommentReply::create($data);
+
+            $request->session()->flash('reply_message', 'Your reply has been sent.');
+
+            return redirect()->back();
+
+        }
+        
 
         
     }

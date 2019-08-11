@@ -15,10 +15,9 @@
           <tr>
             <th>Id</th>
             <th>Photo</th>
+            <th>Title</th>
             <th>Owner</th>
             <th>Category</th>
-            <th>Title</th>
-            <th>Body</th>
             <th>Post Link</th>
             <th>Comments</th>
             <th>Created at</th>
@@ -38,11 +37,10 @@
                             {{$post->user->name}} 's
                         @endif
                     </td> --}}
-                    <td><a href="{{route('admin.posts.edit', $post->id)}}">{{$post->user->name}}</a></td>
+                    <td><a href="{{route('admin.posts.edit', $post->id)}}">{{$post->title}}</a></td>
+                    <td>{{$post->user->name}}</td>
                     <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
-                    <td>{{$post->title}}</td>
-                    <td>{{strip_tags($post->body)}}</td>
-                    <td><a href="{{route('home.post', $post->slug)}}">View Post</a></td>
+                    <td><a href="{{route('admin.home.post', $post->slug)}}">View Post</a></td>
                     <td><a href="{{route('admin.comments.show', $post->id)}}">View Comment's</a></td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>{{$post->updated_at->diffForHumans()}}</td>

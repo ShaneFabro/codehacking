@@ -71,9 +71,18 @@ class AdminMediaController extends Controller
 
             foreach($photos as $photo){
 
-                unlink(public_path() . $photo->file);
+                if(file_exists(public_path() . $photo->file)){
 
-                $photo->delete();
+                    unlink(public_path() . $photo->file);
+
+                    $photo->delete();
+
+                } else {
+
+                    $photo->delete();
+
+                }
+               
 
             }
 

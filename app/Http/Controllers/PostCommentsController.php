@@ -49,7 +49,7 @@ class PostCommentsController extends Controller
             'post_id' => $request->post_id,
             'author' => $user->name,
             'email' => $user->email,
-            'photo' => $user->photo->file,
+            'photo' => $user->photo ? $user->photo->file : 'placeholder.jpg',
             'body' => $request->body,
             'is_active' => $user->is_active
         ];
@@ -59,6 +59,7 @@ class PostCommentsController extends Controller
         $request->session()->flash('comment_message', 'Your message has been submitted and is waiting moderation.');
 
         return redirect()->back();
+
        
     }
 
@@ -101,7 +102,7 @@ class PostCommentsController extends Controller
         //
         Comment::findOrFail($id)->update($request->all());
 
-        return redirect('/admin/comments');
+        return redirect()->back();
 
     }
 
